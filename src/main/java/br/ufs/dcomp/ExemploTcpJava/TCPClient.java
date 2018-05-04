@@ -15,11 +15,21 @@ public class TCPClient{
             InputStream is = sock.getInputStream(); // Canal de entrada de dados
             OutputStream os = sock.getOutputStream(); // Canal de saída de dados
             String msg = "Olá, DCOMP!!!";
-            byte[] buf = msg.getBytes(); // Obtendo a respresntação em bytes da mensagem
+            byte[] buf = msg.getBytes(); // Obtendo a respresentação em bytes da mensagem
 
             System.out.print("[ Enviando mensagem    ..............................  ");
             os.write(buf);
             System.out.println("[OK] ]");
+            
+            byte[] buf2 = new byte[20]; // buffer de recepção
+
+            System.out.print("[ Aguardando recebimento de mensagem   ..............  ");
+            is.read(buf2); // Operação bloqueante (aguardando chegada de dados)
+            System.out.println("[OK] ]");
+            
+            String msg2 = new String(buf2); // Mapeando vetor de bytes recebido para String
+            
+            System.out.println("  Mensagem recebida: "+ msg2);
         }catch(Exception e){System.out.println(e);}    
         System.out.println("[ FIM ]");
     }
